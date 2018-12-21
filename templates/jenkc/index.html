@@ -1,0 +1,86 @@
+{% extends "jenkc/base.html" %}
+{% block title %}Deploy Count{% endblock %}
+<body>
+{% block leftmenu %}
+    <nav class="navbar navbar-left navbar-inverse" role="navigation">
+	<div class="container-fluid" style="height: 800px">
+		<ul class="nav navbar-collapse">
+            <li class="active"><a href="#">首页</a> </li>
+            <li><a href="/jobs-list">LIST</a></li>
+			<li class="active"><a href="/test">TEST</a></li>
+			<li><a href="/uat">UAT</a></li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					PROD
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="#">3.0支付</a></li>
+					<li><a href="#">3.0债匹</a></li>
+					<li><a href="#">合同系统</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</nav>
+{% endblock %}
+<div class="container">
+{% block body %}
+<form action="/search/">
+    <p>开始时间<input type="date" name="bt" value="2018-10-23 00:00:00"/></p>
+    <p>结束时间<input type="date" name="bt" value="2018-11-23 23:59:59"/></p>
+    <input type="submit" value="确认" />
+</form>
+<div id="chartContainer"></div>
+<script type="text/javascript" src="/static/jenkc/js/canvas.js"></script>
+<script type="text/javascript">
+    new CanvasJS.Chart('chartContainer',{
+        theme:'light7',//主题
+        animationEnabled: true,
+        title: {
+            text: "发版次数统计"
+        },
+        data: [
+            {
+                // 数据
+                type: "column",
+                dataPoints: [
+                    {% for i in jobuild %}
+                        {% for k, v in i.items %}
+                            { label: "{{ k }}", y: {{ v }} },
+                        {% endfor %}
+                    {% endfor %}
+                ]
+            }
+        ]
+    }).render();
+</script>
+
+<table border="1" width="60%" cellpadding="10%">
+<tr>
+    <th>Job name</th>
+    <th>发版次数</th>
+</tr>
+{% for i in jobuild %}
+{% for k, v in i.items %}
+    <tr>
+    <td>{{ k }}</td>
+    <td>{{ v }}</td>
+    </tr>
+{% endfor %}
+{% endfor %}
+</table>
+<!--form action="/test/" method="get" name="jb" target="test">
+    <select name="jobname">
+        {% for jobname, num in jobnum.items %}
+        <option value="{{ jobname }}">{{ jobname }}</option>
+        {% endfor %}
+    </select>
+     <input type="submit" value="Submit" />
+</form-->
+<br>
+<iframe name="test" frameborder="0" style="padding-top: 10px; float: contour; width: 100%; height: auto"></iframe>
+{% endblock %}
+</div>
+</body>
+</html>

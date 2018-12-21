@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ jobname }}</title>
+</head>
+<body>
+<h1>{{ jobname }}</h1>
+{% for i in jobuild %}
+    <p>
+    {% for k,v in i.items %}
+        {{ k }}:{{ v }},
+    {% endfor %}
+    </p>
+{% endfor %}
+</body>
+</html>

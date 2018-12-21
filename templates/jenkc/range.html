@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发版次数</title>
+    <link rel="stylesheet" href="/static/jenkc/css/mystyle.css">
+</head>
+<body>
+<form action="/search/">
+    <p>开始时间<input type="date" name="bt" value="2018-10-23 00:00:00"/></p>
+    <p>结束时间<input type="date" name="bt" value="2018-11-23 23:59:59"/></p>
+    <input type="submit" value="确认" />
+</form>
+<table id="customers">
+<tr>
+    <th>Job name</th>
+    <th>发版次数</th>
+</tr>
+{% for i in jobuild %}
+    {% for k, v in i.items %}
+        <tr class="alt">
+        <td>{{ k }}</td>
+        <td>{{ v }}</td>
+        </tr>
+    {% endfor %}
+{% endfor %}
+</table>
+</body>
+</html>

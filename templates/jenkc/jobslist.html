@@ -1,0 +1,36 @@
+{% extends "jenkc/base.html" %}
+{% block title %}Jobs List{% endblock %}
+<body>
+{% block leftmenu %}
+    <nav class="navbar navbar-left navbar-inverse" role="navigation">
+	<div class="container-fluid" style="height: 800px">
+        <ul class="nav navbar-collapse">
+            <li><a href="/index">首页</a> </li>
+            <li class="active"><a href="/jobs-list">LIST</a></li>
+        </ul>
+	</div>
+</nav>
+{% endblock %}
+<div class="container">
+<div id="chartContainer"></div>
+{% block body %}
+<table class="table">
+    <thead>
+    <tr class="active">
+        <td>Job Name</td>
+        <td>描述</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for name, desc in jobdes.items %}
+        <tr class="success">
+        <td>{{ name }}</td>
+        <td>{{ desc }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+</div>
+</body>
+</html>
